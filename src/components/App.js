@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 const App = () => {
   const [showBall, setShowBall] = useState(false);
   const [ballPosition, setBallPosition] = useState({ top: 0, left: 0 });
+  const [initialLeft, setInitialLeft] = useState(0);
 
   const handleStartClick = () => {
     setShowBall(true);
@@ -26,6 +27,12 @@ const App = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, []); // Adding an empty dependency array ensures the effect runs only once during component mount
+
+  useEffect(() => {
+    if (showBall) {
+      setInitialLeft(ballPosition.left);
+    }
+  }, [showBall, ballPosition.left]);
 
   return (
     <div>
